@@ -40,15 +40,17 @@ client.aliases = new Enmap();
 // Now we integrate the use of Evie's awesome EnMap module, which
 // essentially saves a collection to disk. This is great for per-server configs,
 // and makes things extremely easy for this purpose.
-client.settings = new Enmap({name: "settings"});
+client.settings = new Enmap({ name: "settings" });
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
 
 
 // Shawn's code:
-client.tokens = new Enmap({name: 'tokens'});
-
+client.tokens = new Enmap({ name: 'tokens' });
+var CronJob = require('cron').CronJob;
+require("./modules/googleFunctions.js")(client);
+require("./modules/jsonFunctions.js")(client);
 
 const init = async () => {
 
@@ -82,10 +84,24 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
+  // The function for downloading JSON files
+  // (need to implement)
+
+  // A test function for the scheduler
+  const testFunction = () => {
+    console.log("Test, hi!")
+  }
+
+  // The cron scheduler for downloading JSON files
+  // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
+  // client.scheduler = new CronJob('0 21 * * 2,3,5,6', testFunction, null, true, 'America/Los_Angeles');     
+  client.scheduler = new CronJob('* * * * * *', testFunction, null, true, 'America/Los_Angeles');  
+  client.scheduler.isRunning = true;
+
   // Here we login the client.
   client.login(client.config.token);
 
-// End top-level async/await function.
+  // End top-level async/await function.
 };
 
 init();
