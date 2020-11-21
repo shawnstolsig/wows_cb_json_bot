@@ -40,8 +40,8 @@ module.exports = (client) => {
   const defaultSettings = {
     "prefix": "~",
     "modLogChannel": "mod-log",
-    "modRole": "Moderator",
-    "adminRole": "Administrator",
+    "modRole": "Admiral",
+    "adminRole": "Discord Admin",
     "systemNotice": "true",
     "welcomeChannel": "welcome",
     "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
