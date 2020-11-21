@@ -1,0 +1,8 @@
+https://discord.com/api/oauth2/authorize?client_id=779729472642351155&permissions=93184&scope=bot
+
+Permissions: 93184
+View Channels
+Send Messages
+Manage Messages
+Embed Links
+Read Message History
