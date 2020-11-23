@@ -32,6 +32,8 @@
     "inquirer": "^7.1.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
-    "needle": "^2.5.2"
+    "needle": "^2.5.2",
+    "node-google-drive": "^1.1.2",
+    "path": "^0.12.7"
   }
 }

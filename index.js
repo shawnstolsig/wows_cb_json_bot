@@ -51,6 +51,13 @@ client.tokens = new Enmap({ name: 'tokens' });
 var CronJob = require('cron').CronJob;
 require("./modules/googleFunctions.js")(client);
 require("./modules/jsonFunctions.js")(client);
+const path = require('path')
+// const GOOGLE_DRIVE_ROOT_FOLDER = '1Yx7mSnFY7UJawqIsTfHHs_us8XgGj9Yc';        // the 'Data' folder 
+const GOOGLE_DRIVE_ROOT_FOLDER = '195-tSRxwb5OxNMJV-qFW8vk8b5NR2Lh2';           // the 'KSx Clan Wars' drive
+const PATH_TO_CREDENTIALS = path.resolve(`${__dirname}/google_service_account_credentials.json`);
+const NodeGoogleDrive = require('node-google-drive');
+
+console.log(PATH_TO_CREDENTIALS)
 
 const init = async () => {
 
@@ -84,8 +91,29 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
-  // The function for downloading JSON files
-  // (need to implement)
+  // Setup for Google Drive connection
+  const creds_service_user = require(PATH_TO_CREDENTIALS);
+
+  const googleDriveInstance = new NodeGoogleDrive({
+    ROOT_FOLDER: GOOGLE_DRIVE_ROOT_FOLDER
+  });
+
+  const gDrive = await googleDriveInstance.useServiceAccountAuth(
+    creds_service_user
+  );
+
+  client.logger.log(`Successfully connected to Google Drive`, `ready`);
+  client.googleDrive = googleDriveInstance
+  client.googleCredentials = creds_service_user
+
+  // List Folders under the root folder
+  // let folderResponse = await client.googleDrive.listFolders(
+  //   GOOGLE_DRIVE_ROOT_FOLDER,
+  //   null,
+  //   false
+  // );
+
+  // console.log({ folders: folderResponse.folders });
 
   // A test function for the scheduler
   const testFunction = () => {
@@ -95,7 +123,7 @@ const init = async () => {
   // The cron scheduler for downloading JSON files
   // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
   // client.scheduler = new CronJob('0 21 * * 2,3,5,6', testFunction, null, true, 'America/Los_Angeles');     
-  client.scheduler = new CronJob('* * * * * *', testFunction, null, false, 'America/Los_Angeles');  
+  client.scheduler = new CronJob('* * * * * *', testFunction, null, false, 'America/Los_Angeles');
   client.scheduler.isRunning = true;
 
   // Here we login the client.
