@@ -95,7 +95,7 @@ const init = async () => {
   // The cron scheduler for downloading JSON files
   // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
   // client.scheduler = new CronJob('0 21 * * 2,3,5,6', testFunction, null, true, 'America/Los_Angeles');     
-  client.scheduler = new CronJob('* * * * * *', testFunction, null, true, 'America/Los_Angeles');  
+  client.scheduler = new CronJob('* * * * * *', testFunction, null, false, 'America/Los_Angeles');  
   client.scheduler.isRunning = true;
 
   // Here we login the client.

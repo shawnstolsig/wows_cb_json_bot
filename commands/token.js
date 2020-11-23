@@ -12,7 +12,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         if (!tag || !token) msg.edit(`Please provide both clan tag and token when setting. `);
         else {
             const upperCaseTag = tag.toUpperCase()
-            client.tokens.set(upperCaseTag, {token, dateSet: new Date()})
+            client.tokens.set(upperCaseTag, {
+                token, 
+                dateSet: new Date()
+            })
             msg.edit(`${upperCaseTag}'s token set to ${token}`);
         };
     }
