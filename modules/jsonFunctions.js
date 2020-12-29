@@ -27,6 +27,8 @@ module.exports = (client) => {
         return `https://clans.worldofwarships.com/api/ladder/battles/?team=${teamNumber}`;
     }
 
+    // TODO: connect this function (or a similiar one) to the cron.  will want to mention aussie if bad token detected.
+
     const getCBData = (inputTag) => {
         return new Promise(async (resolve, reject) => {
 
@@ -47,6 +49,7 @@ module.exports = (client) => {
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.alpha = response.body;
+                            uploadJsonToDrive(client, response.body, 'A')
                         }
 
                         // chain promises together so that bravo results are grabbed after alpha
@@ -57,6 +60,7 @@ module.exports = (client) => {
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.bravo = response.body;
+                            uploadJsonToDrive(client, response.body, 'B')
                         }
                         resolve(alphaBravoCombined);
                     })
@@ -72,3 +76,32 @@ module.exports = (client) => {
 
 
 };
+
+// TODO: file naming (clan tags, session id or just date)
+// TODO: code organization...move this to googleFunctions.js?
+const uploadJsonToDrive = (client, json, team) => {
+
+
+    let folderId = '1nm5HPsMp56ZzXUEp303Mn1-3QwjBpRZ0';   // 'season test' folder
+    let filename = `test${team}.json`
+    let fileMetadata = {
+        'name': filename,
+        parents: [folderId],
+    };
+    let media = {
+        mimeType: 'application/json',
+        body: JSON.stringify(json)
+    };
+    client.drive.files.create({
+        resource: fileMetadata,
+        media,
+        fields: 'id'
+    }, function (err, file) {
+        if (err) {
+            // Handle error
+            client.logger.log(`Failed to upload JSON. ${err}`);
+        } else {
+            client.logger.log(`Successfully wrote ${filename} to Google Drive.  File id: ${file.id}`);
+        }
+    });
+}

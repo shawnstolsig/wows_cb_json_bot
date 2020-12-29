@@ -22,6 +22,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     // for setting token
     else if (action === 'get') {
+
+        // TODO: Create a command that will return how many days are remaining on current tokens, assuming they are valid for 14 days
+
         if (message.author.permLevel !== 10) {
             msg.edit(`Only the bot owner can run this command.`)
             return;
