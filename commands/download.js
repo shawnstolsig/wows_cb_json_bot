@@ -8,6 +8,34 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     }
     msg.edit(`Downloading json files for ${clanTags}`)
 
+    let jwToken = new client.google.auth.JWT(
+        client.key.client_email,
+        null,
+        client.key.private_key,
+        ['https://googleapis.com/auth/drive'],
+        null
+    )
+    jwToken.authorize((err) => {
+        if (err) console.log(`err: ${err}`);
+        else console.log("Google Authentication Successful");
+    })
+
+    let folder = `14qshhYQ4v2TNFU4jOOepDjAxdK9hPTj8`
+    client.drive.files.list({
+        auth: jwToken,
+        pageSize: 10,
+        fields: `files(id,name)`
+    }, (err, res) => {
+        if (err) return client.logger.log(`API returned an error: ${err}`, 'warn');
+        var files = res.data.files;
+        if (files.length) {
+            console.log(`Files:`);
+            files.map((file) => {
+                console.log(`${file.name} (${file.id})`)
+            })
+        }
+    })
+
     // download json for each clan
     for (let tag of clanTags) {
         try {
@@ -16,28 +44,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             client.logger.log(successMessage)
             await message.channel.send(successMessage)
 
-            // // post to google drive
-            // let uploadAlphaResponse = await client.gDrive.files.create({
-            //     source: clanJsonData.alpha,
-            //     parentFolder: '1nm5HPsMp56ZzXUEp303Mn1-3QwjBpRZ0',
-            //     name: 'testAlpha.json',
-            //     mimeType: 'application/json'
-            // });
-            // // post to google drive
-            // let uploadBravoResponse = await client.gDrive.files.create({
-            //     source: clanJsonData.bravo,
-            //     parentFolder: '1nm5HPsMp56ZzXUEp303Mn1-3QwjBpRZ0',
-            //     name: 'testBravo.json',
-            //     mimeType: 'application/json'
-            // });
-            client.googleDrive
-            .useServiceAccountAuth(client.googleCredentials)
-            .then((gdrivehandler) => {
-              return client.googleDrive.createFolder(
-                `195-tSRxwb5OxNMJV-qFW8vk8b5NR2Lh2`,
-                `test_folder_${Date.now()}`
-              );
-            })
+
 
         } catch (error) {
             client.logger.log(error, 'warn')

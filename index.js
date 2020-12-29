@@ -51,13 +51,15 @@ client.tokens = new Enmap({ name: 'tokens' });
 var CronJob = require('cron').CronJob;
 require("./modules/googleFunctions.js")(client);
 require("./modules/jsonFunctions.js")(client);
-const path = require('path')
 // const GOOGLE_DRIVE_ROOT_FOLDER = '1Yx7mSnFY7UJawqIsTfHHs_us8XgGj9Yc';        // the 'Data' folder 
-const GOOGLE_DRIVE_ROOT_FOLDER = '195-tSRxwb5OxNMJV-qFW8vk8b5NR2Lh2';           // the 'KSx Clan Wars' drive
-const PATH_TO_CREDENTIALS = path.resolve(`${__dirname}/google_service_account_credentials.json`);
-const NodeGoogleDrive = require('node-google-drive');
-
-console.log(PATH_TO_CREDENTIALS)
+// const GOOGLE_DRIVE_ROOT_FOLDER = '195-tSRxwb5OxNMJV-qFW8vk8b5NR2Lh2';           // the 'KSx Clan Wars' drive
+// const NodeGoogleDrive = require('node-google-drive');
+// const path = require('path')
+// const PATH_TO_CREDENTIALS = path.resolve(`${__dirname}/google_service_account_credentials.json`);
+// client.credentials = PATH_TO_CREDENTIALS
+client.google = require('googleapis')
+client.drive = client.google.drive('v3') 
+client.key = require('./google_service_account_credentials.json')
 
 const init = async () => {
 
@@ -92,28 +94,17 @@ const init = async () => {
   }
 
   // Setup for Google Drive connection
-  const creds_service_user = require(PATH_TO_CREDENTIALS);
+  // const creds_service_user = require(PATH_TO_CREDENTIALS);
 
-  const googleDriveInstance = new NodeGoogleDrive({
-    ROOT_FOLDER: GOOGLE_DRIVE_ROOT_FOLDER
-  });
+  // const googleDriveInstance = new NodeGoogleDrive({
+  //   ROOT_FOLDER: GOOGLE_DRIVE_ROOT_FOLDER
+  // });
 
-  const gDrive = await googleDriveInstance.useServiceAccountAuth(
-    creds_service_user
-  );
-
-  client.logger.log(`Successfully connected to Google Drive`, `ready`);
-  client.googleDrive = googleDriveInstance
-  client.googleCredentials = creds_service_user
-
-  // List Folders under the root folder
-  // let folderResponse = await client.googleDrive.listFolders(
-  //   GOOGLE_DRIVE_ROOT_FOLDER,
-  //   null,
-  //   false
+  // await googleDriveInstance.useServiceAccountAuth(
+  //   creds_service_user
   // );
-
-  // console.log({ folders: folderResponse.folders });
+  client.logger.log(`Successfully connected to Google Drive`, `ready`);
+  // client.googleDrive = googleDriveInstance
 
   // A test function for the scheduler
   const testFunction = () => {
