@@ -15,17 +15,35 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             const upperCaseTag = tag.toUpperCase()
             client.tokens.set(upperCaseTag, {
                 token,
-                dateSet: new Date()
+                dateSet: new Date(),
+                isValid: true
             })
             msg.edit(`${upperCaseTag}'s token set to ${token}`);
         }
         ;
     }
 
-    // for setting token
-    else if (action === 'get') {
+    // for checking tokens
+    else if (action === 'check'){
+        let message = `All stored tokens:\n`
+        let keys = client.tokens.keyArray()
+        keys.map(key => {
+            let clanObj = client.tokens.get(key);
 
-        // TODO: Create a command that will return how many days are remaining on current tokens, assuming they are valid for 14 days
+            let delta = (new Date() - clanObj.dateSet) / 86400000
+
+            message += `
+            **${key}**
+            *Set on*: ${clanObj.dateSet.toLocaleString()}
+            *Days remaining*: ${Math.round((12-delta) * 10) / 10}
+            *Working?* ${clanObj.isValid ? 'Yes' : 'No'}
+            `
+        })
+        msg.edit(message)
+    }
+
+    // for getting all token (for debugging)
+    else if (action === 'get') {
 
         if (message.author.permLevel !== 10) {
             msg.edit(`Only the bot owner can run this command.`)

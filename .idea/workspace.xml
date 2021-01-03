@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="840e3cc8-71d5-48a9-9c93-3023aa5c84ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/commands/folder.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/download.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/start.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/status.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/status.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/stop.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/stop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/googleFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/googleFunctions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/jsonFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/jsonFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +56,7 @@
       <updated>1609216055003</updated>
       <workItem from="1609216056221" duration="9215000" />
       <workItem from="1609263306262" duration="18000" />
-      <workItem from="1609628075043" duration="7191000" />
+      <workItem from="1609628075043" duration="11208000" />
     </task>
     <servers />
   </component>

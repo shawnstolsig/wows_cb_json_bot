@@ -1,6 +1,10 @@
 const fs = require('fs')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+    if (message.channel.type === 'dm') {
+        message.channel.send(`This command doesn't work as a DM...please try again from your Discord server.`);
+        return;
+    }
     client.getAllClanJsons(message.channel, args.map(tag => tag.toUpperCase()))
 };
 

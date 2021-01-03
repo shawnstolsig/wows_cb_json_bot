@@ -46,10 +46,13 @@ module.exports = (client) => {
 
                         // API will return 'forbidden' if the token is bad
                         if (response.body === 'Forbidden') {
+                            let clanObj = client.tokens.get(inputTag)
+                            clanObj.isValid = false;
+                            client.tokens.set(inputTag, clanObj)
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.alpha = response.body;
-                            client.uploadJsonToDrive(client, response.body, 'A', client.folderId.get(guildId))
+                            client.uploadJsonToDrive(client, response.body, {tag: inputTag, team: 'A'}, client.folderId.get(guildId))
                         }
 
                         // chain promises together so that bravo results are grabbed after alpha
@@ -57,10 +60,13 @@ module.exports = (client) => {
                     })
                     .then(async (response) => {
                         if (response.body === 'Forbidden') {
+                            let clanObj = client.tokens.get(inputTag)
+                            clanObj.isValid = false;
+                            client.tokens.set(inputTag, clanObj)
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.bravo = response.body;
-                            client.uploadJsonToDrive(client, response.body, 'B', client.folderId.get(guildId))
+                            client.uploadJsonToDrive(client, response.body, {tag: inputTag, team: 'B'}, client.folderId.get(guildId))
                         }
                         resolve(alphaBravoCombined);
                     })
