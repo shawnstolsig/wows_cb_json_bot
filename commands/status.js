@@ -2,7 +2,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     const msg = await message.channel.send("Getting scheduler status...");
     const lastDate = client.scheduler.lastDate();
     const nextDates = client.scheduler.nextDates();
-    msg.edit(`${client.scheduler.isRunning ? 'Scheduler is running.' : 'Scheduler is stopped.'}\nLast ran at: ${lastDate ? lastDate : 'Not run during current bot uptime.'}\nNext scheduled time: ${nextDates}`)
+    msg.edit(`${client.cronIsRunning ? 'Scheduler is running.' : 'Scheduler is stopped.'}\nLast ran at: ${lastDate ? lastDate : 'Not run during current bot uptime.'}\nNext scheduled time: ${nextDates}`)
 
 };
 

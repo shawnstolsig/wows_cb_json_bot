@@ -29,7 +29,7 @@ module.exports = (client) => {
 
     // TODO: connect this function (or a similiar one) to the cron.  will want to mention aussie if bad token detected.
 
-    const getCBData = (inputTag) => {
+    client.getCBData = (inputTag, guildId) => {
         return new Promise(async (resolve, reject) => {
 
             // a return object to store alpha + bravo data combined for this clan tag
@@ -49,7 +49,7 @@ module.exports = (client) => {
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.alpha = response.body;
-                            uploadJsonToDrive(client, response.body, 'A')
+                            client.uploadJsonToDrive(client, response.body, 'A', client.folderId.get(guildId))
                         }
 
                         // chain promises together so that bravo results are grabbed after alpha
@@ -60,7 +60,7 @@ module.exports = (client) => {
                             reject(`${inputTag}: Bad/expired token`)
                         } else {
                             alphaBravoCombined.bravo = response.body;
-                            uploadJsonToDrive(client, response.body, 'B')
+                            client.uploadJsonToDrive(client, response.body, 'B', client.folderId.get(guildId))
                         }
                         resolve(alphaBravoCombined);
                     })
@@ -72,36 +72,36 @@ module.exports = (client) => {
         })
     }
 
-    client.getCBData = getCBData
+    client.getAllClanJsons = async (channel, clanTags = []) => {
+
+        // make sure there is a valid channel for sending status messages
+        if(!channel) channel = client.defaultChannel;
+
+        const msg = await channel.send("Downloading JSON...");
+
+        // if no clans were specified, then grab the tags for all clans with stored tokens
+        if (clanTags.length === 0) {
+            clanTags = client.tokens.keyArray(0)
+        }
+        msg.edit(`Downloading json files for ${clanTags}`)
+
+        // download json for each clan
+        for (let tag of clanTags) {
+            try {
+                let clanJsonData = await client.getCBData(tag, channel.guild.id)
+                let successMessage = `${tag}: Successfully downloaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles`
+                client.logger.log(successMessage)
+                await channel.send(successMessage)
+            } catch (error) {
+                client.logger.log(error, 'warn')
+                await channel.send(error);
+            }
+        }
+
+        msg.edit(`Finished, results: `)
+    }
+
 
 
 };
 
-// TODO: file naming (clan tags, session id or just date)
-// TODO: code organization...move this to googleFunctions.js?
-const uploadJsonToDrive = (client, json, team) => {
-
-
-    let folderId = '1nm5HPsMp56ZzXUEp303Mn1-3QwjBpRZ0';   // 'season test' folder
-    let filename = `test${team}.json`
-    let fileMetadata = {
-        'name': filename,
-        parents: [folderId],
-    };
-    let media = {
-        mimeType: 'application/json',
-        body: JSON.stringify(json)
-    };
-    client.drive.files.create({
-        resource: fileMetadata,
-        media,
-        fields: 'id'
-    }, function (err, file) {
-        if (err) {
-            // Handle error
-            client.logger.log(`Failed to upload JSON. ${err}`);
-        } else {
-            client.logger.log(`Successfully wrote ${filename} to Google Drive.  File id: ${file.id}`);
-        }
-    });
-}

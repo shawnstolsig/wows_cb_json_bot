@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
     const msg = await message.channel.send("Starting scheduler...");
     client.scheduler.start()
-    client.scheduler.isRunning = true;
+    client.cronIsRunning = true;
     msg.edit(`Scheduler started.`)
 
 };

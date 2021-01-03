@@ -7,17 +7,19 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         if (message.channel.type !== 'dm') {
             msg.edit(`This command only works as a DM to me.`);
             return;
-        };
+        }
+        ;
 
         if (!tag || !token) msg.edit(`Please provide both clan tag and token when setting. `);
         else {
             const upperCaseTag = tag.toUpperCase()
             client.tokens.set(upperCaseTag, {
-                token, 
+                token,
                 dateSet: new Date()
             })
             msg.edit(`${upperCaseTag}'s token set to ${token}`);
-        };
+        }
+        ;
     }
 
     // for setting token
@@ -33,7 +35,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         if (message.channel.type !== 'dm') {
             msg.edit(`This command only works as a DM to me.`);
             return;
-        };
+        }
+        ;
 
         if (!tag) {
             let message = `All stored tokens:`
@@ -43,11 +46,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
                 message += `\n${key}: ${clanObj.token} (${clanObj.dateSet.toLocaleString()})`
             })
             msg.edit(message)
-        }
-        else {
+        } else {
             const upperCaseTag = tag.toUpperCase()
             let clanObj = client.tokens.get(upperCaseTag);
-            if(!clanObj) {
+            if (!clanObj) {
                 msg.edit(`Couldn't find token for ${tag}`);
                 return;
             }
@@ -55,8 +57,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         }
     }
 
-       // for setting token
-       else if (action === 'clear') {
+    // for clearing all tokens
+    else if (action === 'clear') {
         if (message.author.permLevel !== 10) {
             msg.edit(`Only the bot owner can run this command.`)
             return;
@@ -71,13 +73,14 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         if (!tag) msg.edit(`Please identify which clan's token you'd like to remove.`);
         else {
             const upperCaseTag = tag.toUpperCase()
-            if(!client.tokens.get(upperCaseTag)) {
+            if (!client.tokens.get(upperCaseTag)) {
                 msg.edit(`Cannot find token for ${tag}`)
                 return
             }
             client.tokens.delete(upperCaseTag)
             msg.edit(`${upperCaseTag} token cleared.`)
-        };
+        }
+        ;
     }
 
     // help if improperly formatted command
