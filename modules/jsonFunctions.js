@@ -27,8 +27,6 @@ module.exports = (client) => {
         return `https://clans.worldofwarships.com/api/ladder/battles/?team=${teamNumber}`;
     }
 
-    // TODO: connect this function (or a similiar one) to the cron.  will want to mention aussie if bad token detected.
-
     client.getCBData = (inputTag, guildId) => {
         return new Promise(async (resolve, reject) => {
 

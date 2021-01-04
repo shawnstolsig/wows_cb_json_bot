@@ -5,7 +5,6 @@ module.exports = (client) => {
             client.defaultChannel.send(`No Google Drive folder currently set.  Please use the 'folder set' command.`)
             client.logger.log(`Folder ID not stored, aborting upload.`, 'warn');
         } else {
-            // TODO: file naming (clan tags, session id or just date)
             let {year, month, day} = getDateInfo()
             let filename = `${day}-${month}-${year} ${tag}-${team}.json`
             let fileMetadata = {

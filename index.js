@@ -90,36 +90,36 @@ const init = async () => {
 
     // The cron scheduler for downloading JSON files
     // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
-    client.cronIsRunning = false;
-    // client.scheduler = new CronJob('0 21 * * 2,3,5,6', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
-    client.scheduler = new CronJob('* * * * *', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
+    client.cronIsRunning = true;
+    client.scheduler = new CronJob('0 21 * * 2,3,5,6', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
+    // client.scheduler = new CronJob('* * * * *', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
 
-    // TODO: uncomment Sentry
-    // const Sentry = require("@sentry/node");
-    // const Tracing = require("@sentry/tracing");
-    //
-    // Sentry.init({
-    //     dsn: "https://4ad99473cf0048789d56b042a7b827c5@o491578.ingest.sentry.io/5577330",
-    //     tracesSampleRate: 1.0,
-    // });
-    //
-    // const transaction = Sentry.startTransaction({
-    //     op: "test",
-    //     name: "My First Test Transaction",
-    // });
-    //
-    // setTimeout(() => {
-    //     try {
-    //         foo();
-    //     } catch (e) {
-    //         Sentry.captureException(e);
-    //     } finally {
-    //         transaction.finish();
-    //     }
-    // }, 99);
+    // Sentry
+    const Sentry = require("@sentry/node");
+    const Tracing = require("@sentry/tracing");
+
+    Sentry.init({
+        dsn: "https://4ad99473cf0048789d56b042a7b827c5@o491578.ingest.sentry.io/5577330",
+        tracesSampleRate: 1.0,
+    });
+
+    const transaction = Sentry.startTransaction({
+        op: "test",
+        name: "My First Test Transaction",
+    });
+
+    setTimeout(() => {
+        try {
+            foo();
+        } catch (e) {
+            Sentry.captureException(e);
+        } finally {
+            transaction.finish();
+        }
+    }, 99);
 };
 
 init();
 
 // TODO: message/mention folks a day or two before token expires
-// TODO: swap cron from testing to production
+
