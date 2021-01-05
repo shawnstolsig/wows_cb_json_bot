@@ -91,7 +91,7 @@ const init = async () => {
     // The cron scheduler for downloading JSON files
     // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
     client.cronIsRunning = true;
-    client.scheduler = new CronJob('0 21 * * 2,3,5,6', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
+    client.scheduler = new CronJob('0 21 * * 0,3,4,6', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
     // client.scheduler = new CronJob('* * * * *', client.getAllClanJsons, null, client.cronIsRunning, 'America/Los_Angeles');
 
     // Sentry
