@@ -86,7 +86,7 @@ const init = async () => {
     await client.login(client.config.token);
 
     // specify the default channel for reading/sending messages
-    client.defaultChannel = await client.channels.fetch(`261376661998534666`)
+    client.defaultChannel = await client.channels.fetch(`643846931164168192`)
 
     // The cron scheduler for downloading JSON files
     // Constructor params: schedule, function to run at scheduled time, function to run on stop(), job starts automatically?, timezone
