@@ -113,12 +113,12 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: [],
-    permLevel: "Bot Owner"
+    permLevel: "User"
 };
 
 exports.help = {
     name: "token",
     category: "Token",
-    description: "For setting auth tokens from WG.",
+    description: "For getting and setting auth tokens from WG.",
     usage: "token <clan tag> <wsauth_token>"
 };
