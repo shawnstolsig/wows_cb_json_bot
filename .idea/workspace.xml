@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="840e3cc8-71d5-48a9-9c93-3023aa5c84ad" name="Default Changelist" comment="" />
+    <list default="true" id="840e3cc8-71d5-48a9-9c93-3023aa5c84ad" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,8 +30,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="15.0.1" />
-    <property name="javascript.nodejs.core.library.typings.version" value="14.14.16" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.16.1" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.9" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
@@ -52,7 +54,8 @@
       <workItem from="1609216056221" duration="9215000" />
       <workItem from="1609263306262" duration="18000" />
       <workItem from="1609628075043" duration="13365000" />
-      <workItem from="1614916462341" duration="439000" />
+      <workItem from="1614916462341" duration="826000" />
+      <workItem from="1628830940304" duration="237000" />
     </task>
     <servers />
   </component>

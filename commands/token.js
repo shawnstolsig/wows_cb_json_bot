@@ -35,7 +35,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             message += `
             **${key}**
             *Set on*: ${clanObj.dateSet.toLocaleString()}
-            *Days remaining*: ${Math.round((12-delta) * 10) / 10}
+            *Days remaining*: ${Math.round((365-delta) * 10) / 10}
             *Working?* ${clanObj.isValid ? 'Yes' : 'No'}
             `
         })
