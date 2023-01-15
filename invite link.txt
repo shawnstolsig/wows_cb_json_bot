@@ -1,4 +1,5 @@
 https://discord.com/api/oauth2/authorize?client_id=779729472642351155&permissions=93184&scope=bot
+PN: 1062599613820968961
 
 Permissions: 93184
 View Channels

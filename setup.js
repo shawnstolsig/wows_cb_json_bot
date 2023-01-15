@@ -7,8 +7,8 @@ let baseConfig = fs.readFileSync("./config_base.txt", "utf8");
 const defaultSettings = {
   "prefix": "=",
   "modLogChannel": "mod-log",
-  "modRole": "Admiral",
-  "adminRole": "Discord Admin",
+  "modRole": "PN Officer",
+  "adminRole": "Commander",
   "systemNotice": "true",
   "welcomeChannel": "welcome",
   "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",

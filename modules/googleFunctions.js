@@ -1,12 +1,20 @@
 module.exports = (client) => {
-    client.uploadJsonToDrive = (client, json, {tag, team}, folderId) => {
+    client.uploadJsonToDrive = async (client, json, {tag, team}, folderId) => {
 
         if(!folderId){
             client.defaultChannel.send(`No Google Drive folder currently set.  Please use the 'folder set' command.`)
             client.logger.log(`Folder ID not stored, aborting upload.`, 'warn');
         } else {
+
+            if(json.length === 0){
+                client.logger.log('Empty JSON file, aborting upload. ')
+                return
+            }
+
             let {year, month, day} = getDateInfo()
-            let filename = `${day}-${month}-${year} ${tag}-${team}.json`
+            let seasonNumber = json[0].season_number
+            let filename = `S${seasonNumber} ${day}-${month}-${year} ${tag}-${team}.json`
+
             let fileMetadata = {
                 'name': filename,
                 parents: [folderId],
@@ -79,3 +87,36 @@ const getDateInfo = () => {
     return {year, day, month}
 
 }
+
+
+/**
+ * Create a folder and prints the folder ID
+ * @return{obj} folder Id
+ * */
+// async function createFolder() {
+//     // Get credentials and build service
+//     // TODO (developer) - Use appropriate auth mechanism for your app
+//
+//     const {GoogleAuth} = require('google-auth-library');
+//     const {google} = require('googleapis');
+//
+//     const auth = new GoogleAuth({
+//         scopes: 'https://www.googleapis.com/auth/drive',
+//     });
+//     const service = google.drive({version: 'v3', auth});
+//     const fileMetadata = {
+//         name: 'Invoices',
+//         mimeType: 'application/vnd.google-apps.folder',
+//     };
+//     try {
+//         const file = await service.files.create({
+//             resource: fileMetadata,
+//             fields: 'id',
+//         });
+//         console.log('Folder Id:', file.data.id);
+//         return file.data.id;
+//     } catch (err) {
+//         // TODO(developer) - Handle error
+//         throw err;
+//     }
+// }
