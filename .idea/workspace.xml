@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="840e3cc8-71d5-48a9-9c93-3023aa5c84ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/modules/apiFunctions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invite link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/invite link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/googleFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/googleFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/setup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +35,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="1mJeK7ya1H9CDqOvs6BajMEfn0P" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,6 +46,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/shawnstolsig/Code/pn/wows_cb_json_bot&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -74,6 +76,7 @@
       <workItem from="1628830940304" duration="237000" />
       <workItem from="1673414763188" duration="8012000" />
       <workItem from="1673808952341" duration="1953000" />
+      <workItem from="1692754186519" duration="923000" />
     </task>
     <servers />
   </component>

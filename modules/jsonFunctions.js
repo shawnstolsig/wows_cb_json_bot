@@ -91,8 +91,11 @@ module.exports = (client) => {
 
         // download json for each clan
         for (let tag of clanTags) {
+            let clanJsonData
+
+            // get cb data (files are posted to google drive inside the getCBData function)
             try {
-                let clanJsonData = await client.getCBData(tag, channel.guild.id)
+                clanJsonData = await client.getCBData(tag, channel.guild.id)
                 let successMessage = `${tag}: Successfully downloaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles`
                 client.logger.log(successMessage)
                 await channel.send(successMessage)
@@ -100,6 +103,18 @@ module.exports = (client) => {
                 client.logger.log(error, 'warn')
                 await channel.send(error);
             }
+
+            // post cb data to CB Data API
+            try {
+                let response = await client.postCBData(clanJsonData)
+                let successMessageApi = `${tag}: Successfully posted ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`
+                client.logger.log(successMessageApi)
+                await channel.send(successMessageApi)
+            } catch (error) {
+                client.logger.log(error, 'warn')
+                await channel.send(error);
+            }
+
         }
 
         msg.edit(`Finished, results: `)

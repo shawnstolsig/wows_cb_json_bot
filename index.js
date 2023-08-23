@@ -11,6 +11,8 @@ const keys = require('./google_service_account_credentials.json')
 
 // Ensure correct Node version
 if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Node 12.0.0 or higher is required. Update Node on your system.");
+if (Number(process.version.slice(1).split(".")[0]) > 15) throw new Error("Node 15.0.0 or lower is required. Update Node on your system.");
+
 
 // Instantiate the bot client
 const client = new Discord.Client({
@@ -23,6 +25,7 @@ const client = new Discord.Client({
 require("./modules/functions.js")(client); // some useful functions used throughout
 require("./modules/googleFunctions.js")(client);
 require("./modules/jsonFunctions.js")(client);
+require("./modules/apiFunctions.js")(client);
 
 // Add a few things to our client, since it is now created
 client.config = config
