@@ -106,7 +106,9 @@ module.exports = (client) => {
 
             // post cb data to CB Data API
             try {
-                let response = await client.postCBData(clanJsonData)
+                await client.postCBData(clanJsonData.alpha)
+                await client.postCBData(clanJsonData.bravo)
+
                 let successMessageApi = `${tag}: Successfully posted ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`
                 client.logger.log(successMessageApi)
                 await channel.send(successMessageApi)
