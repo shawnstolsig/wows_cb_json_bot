@@ -81,13 +81,14 @@ module.exports = (client) => {
         // make sure there is a valid channel for sending status messages
         if(!channel) channel = client.defaultChannel;
 
-        const msg = await channel.send("Downloading JSON...");
+        // const msg = await channel.send("Downloading JSON...");
+        let msg = {}
 
         // if no clans were specified, then grab the tags for all clans with stored tokens
         if (clanTags.length === 0) {
             clanTags = client.tokens.keyArray(0)
         }
-        msg.edit(`Downloading json files for ${clanTags}`)
+        // msg.edit(`Downloading json files for ${clanTags}`)
 
         // download json for each clan
         for (let tag of clanTags) {
@@ -96,30 +97,31 @@ module.exports = (client) => {
             // get cb data (files are posted to google drive inside the getCBData function)
             try {
                 clanJsonData = await client.getCBData(tag, channel.guild.id)
-                let successMessage = `${tag}: Successfully downloaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles`
-                client.logger.log(successMessage)
-                await channel.send(successMessage)
+                msg[tag] = {...msg[tag], downloaded: `${clanJsonData.alpha.length + clanJsonData.bravo.length}`}
+                client.logger.log(`${tag}: Successfully downloaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles`)
             } catch (error) {
                 client.logger.log(error, 'warn')
                 await channel.send(error);
             }
 
-            // post cb data to CB Data API
-            try {
-                await client.postCBData(clanJsonData.alpha)
-                await client.postCBData(clanJsonData.bravo)
-
-                let successMessageApi = `${tag}: Successfully posted ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`
-                client.logger.log(successMessageApi)
-                await channel.send(successMessageApi)
-            } catch (error) {
-                client.logger.log(error, 'warn')
-                await channel.send(error);
+            if(clanJsonData.alpha.length + clanJsonData.bravo.length > 0){
+                // post cb data to CB Data API
+                try {
+                    await client.postCBData(clanJsonData.alpha)
+                    await client.postCBData(clanJsonData.bravo)
+                    msg[tag] = {...msg[tag], uploaded: `${clanJsonData.alpha.length + clanJsonData.bravo.length}`}
+                    client.logger.log(`${tag}: Successfully posted ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`)
+                } catch (error) {
+                    client.logger.log(error, 'warn')
+                    await channel.send(error);
+                }
             }
 
         }
 
-        msg.edit(`Finished, results: `)
+        if(Object.values(msg).reduce((acc, curr) => acc + curr?.downloaded,0) > 0){
+            await channel.send(`Run results: `, Object.keys(msg).map(tag => `${tag}: ${msg[tag]?.downloaded}⬇️ ${msg[tag]?.uploaded}⬆️  `))
+        }
     }
 
 
