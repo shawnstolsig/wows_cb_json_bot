@@ -97,7 +97,7 @@ module.exports = (client) => {
             // get cb data (files are posted to google drive inside the getCBData function)
             try {
                 clanJsonData = await client.getCBData(tag, channel.guild.id)
-                msg[tag] = {...msg[tag], downloaded: `${clanJsonData.alpha.length + clanJsonData.bravo.length}`}
+                msg[tag] = {...msg[tag], downloaded: clanJsonData.alpha.length + clanJsonData.bravo.length}
                 client.logger.log(`${tag}: Successfully downloaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles`)
             } catch (error) {
                 client.logger.log(error, 'warn')
@@ -109,8 +109,8 @@ module.exports = (client) => {
                 try {
                     await client.postCBData(clanJsonData.alpha)
                     await client.postCBData(clanJsonData.bravo)
-                    msg[tag] = {...msg[tag], uploaded: `${clanJsonData.alpha.length + clanJsonData.bravo.length}`}
-                    client.logger.log(`${tag}: Successfully posted ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`)
+                    msg[tag] = {...msg[tag], uploaded: clanJsonData.alpha.length + clanJsonData.bravo.length}
+                    client.logger.log(`${tag}: Successfully uploaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`)
                 } catch (error) {
                     client.logger.log(error, 'warn')
                     await channel.send(error);
@@ -120,7 +120,7 @@ module.exports = (client) => {
         }
 
         if(Object.values(msg).reduce((acc, curr) => acc + curr?.downloaded,0) > 0){
-            await channel.send(`Run results: `, Object.keys(msg).map(tag => `${tag}: ${msg[tag]?.downloaded}⬇️ ${msg[tag]?.uploaded}⬆️  `))
+            await channel.send(`Run results: `, Object.keys(msg).map(tag => `${tag}: ${msg[tag].downloaded}⬇️ ${msg[tag].uploaded}⬆️  `))
         }
     }
 
