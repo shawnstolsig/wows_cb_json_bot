@@ -1,5 +1,6 @@
 google_service_account_credentials.json
 **/.DS_Store
+.idea
 
 # Logs
 logs
