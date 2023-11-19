@@ -113,18 +113,15 @@ module.exports = (client) => {
                     client.logger.log(`${tag}: Successfully uploaded ${clanJsonData.alpha.length + clanJsonData.bravo.length} battles to API`)
                 } catch (error) {
                     client.logger.log(error, 'warn')
-                    await channel.send(error);
+                    await channel.send(`Failed to send ${tag} battles to API`);
                 }
             }
 
         }
 
         if(Object.values(msg).reduce((acc, curr) => acc + curr?.downloaded,0) > 0){
-            await channel.send(`Run results: `, Object.keys(msg).map(tag => `${tag}: ${msg[tag].downloaded}⬇️ ${msg[tag].uploaded}⬆️  `))
+            await channel.send(`**Run results:** ${Object.keys(msg).map(tag => `${tag}: ${msg[tag].downloaded} ⬇️ ${msg[tag].uploaded ? `${msg[tag].uploaded} ⬆️` : ''}`).join(' | ')}`)
         }
     }
-
-
-
 };
 
