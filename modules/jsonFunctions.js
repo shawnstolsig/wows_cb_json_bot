@@ -120,7 +120,7 @@ module.exports = (client) => {
         }
 
         if(Object.values(msg).reduce((acc, curr) => acc + curr?.downloaded,0) > 0){
-            await channel.send(`**Run results:** ${Object.keys(msg).map(tag => `${tag}: ${msg[tag].downloaded} ⬇️ ${msg[tag].uploaded ? `${msg[tag].uploaded} ⬆️` : ''}`).join(' | ')}`)
+            await channel.send(`${Object.keys(msg).map(tag => `${tag}: ${msg[tag].downloaded} ⬇️ ${msg[tag].uploaded ? `${msg[tag].uploaded} ⬆️` : ''}`).join(' | ')}`)
         }
     }
 };
