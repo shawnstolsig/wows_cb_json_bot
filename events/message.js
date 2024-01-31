@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
   if (message.content.indexOf(settings.prefix) !== 0) return;
 
   // Return if the message is on the KS discord but not the Developer Corner channel
-  if(message?.guildId === '363410632759967744' && message?.channelId !== '643846931164168192') {
+  if(message.guild?.id === '363410632759967744' && message.channel.id !== '643846931164168192') {
     client.logger.warn(`Got a message starting with correct prefix from ${message.author} in ${message.channel}: ${message?.content}`)
     return
   }
