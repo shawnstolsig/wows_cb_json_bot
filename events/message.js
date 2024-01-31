@@ -21,6 +21,12 @@ module.exports = async (client, message) => {
   // which is set in the configuration file.
   if (message.content.indexOf(settings.prefix) !== 0) return;
 
+  // Return if the message is on the KS discord but not the Developer Corner channel
+  if(message?.guildId === '363410632759967744' && message?.channelId !== '643846931164168192') {
+    client.logger.warn(`Got a message starting with correct prefix from ${message.author} in ${message.channel}: ${message?.content}`)
+    return
+  }
+
   // Here we separate our "command" name, and our "arguments" for the command.
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
@@ -59,7 +65,7 @@ module.exports = async (client, message) => {
   // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
   // The "level" command module argument will be deprecated in the future.
   message.author.permLevel = level;
-  
+
   message.flags = [];
   while (args[0] && args[0][0] === "-") {
     message.flags.push(args.shift().slice(1));
